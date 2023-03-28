@@ -9,7 +9,7 @@ module.exports = {
 
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .select("-__V")
+      .select("-__v")
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: "No Thought found with this ID!" })
