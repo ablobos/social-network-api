@@ -56,15 +56,13 @@ module.exports = {
           ? res.status(404).json({ message: "No thought found with this ID!" })
           : User.findOneAndUpdate(
               { thoughts: req.params.thoughtId },
-              { $pulls: { thoughts: req.params.thoughtId } },
+              { $pull: { thoughts: req.params.thoughtId } },
               { new: true }
             )
       )
       .then((user) =>
         !user
-          ? res
-              .status(404)
-              .json({ message: "Thought deleted, however no user was found!" })
+          ? res.status(404).json({ message: "Thought deleted, however no user was found!" })
           : res.json({ message: "Thought deleted successfully!" })
       )
       .catch((err) => res.status(500).json(err));
@@ -78,7 +76,7 @@ module.exports = {
     )
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: "No thought friend with this ID!" })
+          ? res.status(404).json({ message: "No thought found with this ID!" })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
